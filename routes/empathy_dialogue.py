@@ -2,10 +2,10 @@
     [모델 개발중]
 """
 from flask import Flask, render_template, request, jsonify, make_response, Blueprint, redirect, url_for
-from transformers import AutoModelWithLMHead, AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoTokenizer
 import torch
 
-empathy = Blueprint('buisiness', __name__, url_prefix='/empathy')
+empathy = Blueprint('empathy', __name__, url_prefix='/empathy')
 
 # 모델 불러오기
 # tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
@@ -19,16 +19,10 @@ chat_histories = {}
 def predict():
     user_id = request.form['user_id'] 
     user_input = request.form['user_input'] 
-    # 첫 대화인지 확인
-    is_first = request.form['is_first']
 
     # Check if user ID exists in chat_histories, if not, create a new chat history
     if user_id not in chat_histories:
         chat_histories[user_id] = []
-
-    # 첫 대화인 경우 이전 기록 삭제
-    if is_first:
-        chat_histories[user_id].clear()
 
     # Encode user input and add eos_token to create new_user_input_ids
     new_user_input_ids = tokenizer.encode(user_input + tokenizer.eos_token, return_tensors='pt')
@@ -54,4 +48,13 @@ def predict():
     bot_response = tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)    
 
     print(chat_histories)
-    return make_response(bot_response)
+    return make_response(bot_response, 200)
+
+# 이전 대화 기록 초기화
+@empathy.route('/', methods=['DELETE'])
+def delete_user_history():
+  user_id = request.form['user_id'] 
+  if user_id in chat_histories:
+    chat_histories[user_id].clear()
+  return make_response('', 200)
+  
