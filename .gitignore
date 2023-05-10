@@ -12,7 +12,7 @@
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
-.venv
+/venv
 pip-selfcheck.json
 *.pyc
 __pycache__/
