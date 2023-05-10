@@ -8,6 +8,6 @@ if [ ! -d venv ]; then
 	pip install -r requirements.txt
 fi
 export FLASK_APP=app.py
-export FLASK_RUN_PORT=8000
+export FLASK_RUN_PORT=8500
 flask run
 
