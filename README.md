@@ -8,8 +8,8 @@ model 디렉토리 아래에 넣고 사용하시면 됩니다.
 
 다음 링크에서 인공지능 모델을 다운로드할 수 있습니다.
 
-1. 일상 대화 : https://drive.google.com/수정해야함
+1. 일상 대화 : https://drive.google.com/file/d/1Ql6rcD2MXckaGNviFw2gxyQ7icUZ8zni/view
 
-2. 비즈니스 대화 : https://drive.google.com/수정해야함 
+2. 비즈니스 대화 : https://drive.google.com/file/d/1-0oNfOh5i3T6_5lgBz8M7Cf643cw14v7/view
 
 3. 공감 대화 : https://drive.google.com/수정해야함

@@ -6,8 +6,7 @@ business = Blueprint('buisiness', __name__, url_prefix='/business')
 
 # 모델 불러오기
 tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
-business_model = torch.load('model/model_2c.pt')
-business_model.eval()   
+business_model = torch.load('model/business_small_model.pt')
 
 # Define a dictionary to store chat history for each user
 chat_histories = {}
@@ -31,15 +30,7 @@ def predict():
   bot_input_ids = torch.cat(chat_histories[user_id], dim=-1)
   
   # Decode and return bot's response
-  chat_history_ids = business_model.generate(
-      bot_input_ids, max_length=200,
-      pad_token_id= tokenizer.eos_token_id,  
-      no_repeat_ngram_size=3,       
-      do_sample=True, 
-      top_k=100, 
-      top_p=0.7,
-      temperature=0.8
-  )
+  chat_history_ids = business_model.generate(bot_input_ids, max_length=200, pad_token_id=tokenizer.eos_token_id)
 
   # Decode and return bot's response
   bot_response = tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)    

@@ -1,16 +1,12 @@
-"""
-    [모델 개발중]
-"""
 from flask import Flask, render_template, request, jsonify, make_response, Blueprint, redirect, url_for
 from transformers import AutoTokenizer
 import torch
 
 daily = Blueprint('daily', __name__, url_prefix='/daily')
 
-# 모델 불러오기
-# tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
-# daily_model = torch.load('model/daily_model.pt')
-# daily_model.eval()   
+#모델 불러오기
+tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
+daily_model = torch.load('model/daily_medium_model.pt')
 
 # Define a dictionary to store chat history for each user
 chat_histories = {}
@@ -19,7 +15,7 @@ chat_histories = {}
 def predict():
   user_id = request.form['user_id'] 
   user_input = request.form['user_input'] 
-
+  print(3)
   # Check if user ID exists in chat_histories, if not, create a new chat history
   if user_id not in chat_histories:
       chat_histories[user_id] = []
@@ -34,15 +30,8 @@ def predict():
   bot_input_ids = torch.cat(chat_histories[user_id], dim=-1)
   
   # Decode and return bot's response
-  chat_history_ids = daily_model.generate(
-      bot_input_ids, max_length=200,
-      pad_token_id= tokenizer.eos_token_id,  
-      no_repeat_ngram_size=3,       
-      do_sample=True, 
-      top_k=100, 
-      top_p=0.7,
-      temperature=0.8
-  )
+  chat_history_ids = daily_model.generate(bot_input_ids, max_length=200, pad_token_id=tokenizer.eos_token_id)
+
 
   # Decode and return bot's response
   bot_response = tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)    
@@ -52,6 +41,7 @@ def predict():
 # 이전 대화 기록 초기화
 @daily.route('/', methods=['DELETE'])
 def delete_user_history():
+  print(3)
   user_id = request.form['user_id'] 
   if user_id in chat_histories:
     chat_histories[user_id].clear()
