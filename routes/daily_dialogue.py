@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, jsonify, make_response, Blueprint, redirect, url_for, abort
 from transformers import AutoTokenizer
 import torch
@@ -5,6 +6,7 @@ import torch
 daily = Blueprint('daily', __name__, url_prefix='/life')
 
 # 모델 불러오기
+
 tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
 daily_model = torch.load('/ai/nlp/model/daily_medium_model.pt')
 daily_model.eval()
@@ -38,7 +40,10 @@ def predict():
 # 이전 대화 기록 초기화
 @daily.route('/', methods=['DELETE'])
 def delete_user_history():
+
   user_id = request.form['user_id']
+
   if user_id in daily_histories_ids:
     daily_histories_ids[user_id]=[]
   return make_response('', 200)
+  
