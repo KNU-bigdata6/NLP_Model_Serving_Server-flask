@@ -10,7 +10,7 @@ empathy = Blueprint('empathy', __name__, url_prefix='/empathy')
 # 모델 불러오기
 # tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
 # empathy_model = torch.load('model/model_2c.pt')
-# empathy_model.eval()   
+# empathy_model.eval()
 
 # Define a dictionary to store chat history for each user
 chat_histories = {}
@@ -18,7 +18,7 @@ chat_histories = {}
 @empathy.route('/predict', methods=['POST'])
 def predict():
     user_id = request.form['user_id'] 
-    user_input = request.form['user_input'] 
+    user_input = request.form['user_input']
 
     # Check if user ID exists in chat_histories, if not, create a new chat history
     if user_id not in chat_histories:

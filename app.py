@@ -1,13 +1,6 @@
-from flask import Flask
-from transformers import AutoModelWithLMHead, AutoModelForCausalLM, AutoTokenizer
-import torch
-from routes.business_dialogue import business
-# from routes.daily_dialogue import daily
-# from routes.daily_dialogue import empathy
+from . import app
 
 
-app = Flask(__name__)
-
-app.register_blueprint(business)
-# app.register_blueprint(daily)
-# app.register_blueprint(empathy)
+if __name__ == '__main__':
+    #    eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 5000)), app)
+    app.run(host='0.0.0.0',port=8002)
