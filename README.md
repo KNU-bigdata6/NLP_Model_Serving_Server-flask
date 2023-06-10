@@ -10,4 +10,4 @@ model 디렉토리 아래에 넣고 사용하시면 됩니다.
 
 3. 비즈니스 대화 : https://drive.google.com/file/d/1-0oNfOh5i3T6_5lgBz8M7Cf643cw14v7/view
 
-3. 진 대화 : https://drive.google.com/file/d/1-DTaqoFbwuyQEypBwU27Lopvb8l6Dhem/view?usp=sharing
+3. 진료 대화 : https://drive.google.com/file/d/1-DTaqoFbwuyQEypBwU27Lopvb8l6Dhem/view?usp=sharing
